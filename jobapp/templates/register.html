@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!--    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+
+</head>
+<body style="background-color:#e8e8e8">
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+<!--      <div class="modal-header">-->
+<!--        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
+<!--        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--          <span aria-hidden="true">&times;</span>-->
+<!--        </button>-->
+<!--      </div>-->
+      <div class="modal-body">
+        Registration successfull...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+<!--        <button type="button" class="btn btn-primary">Save changes</button>-->
+      </div>
+    </div>
+  </div>
+</div>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <a class="navbar-brand" href="#"><b>Job Portal</b></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <ul class="navbar-nav mr-auto">
+         <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+     </ul>
+        </nav>
+
+        <div class="container" style="margin-top:100px; margin-bottom:100px">
+             <div class="row" id="msg">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                      <strong>Sonething wrong happen !!! </strong>Cant Register User.
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+            <div class="row" id="rowid1">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header"><h5 class="text-secondary">Personal Info</h5></div>
+                        <div class="card-body" style="background-color:#EEEEEE">
+                                <div class="form-group">
+                                    <label><span class="text-danger">*</span>Name</label>
+                                    <input required id="name" class="form-control" type="text" name="" placeholder="Enter your name here">
+                                </div>
+                                <div class="form-group">
+                                    <label><span class="text-danger">*</span>Email ID</label>
+                                    <input required id="email" class="form-control" type="email" name="" placeholder="Enter your email here">
+                                </div>
+                                <div class="form-group">
+                                    <label><span class="text-danger">*</span>Password</label>
+                                    <input required id="pass1" class="form-control" type="password" name="" placeholder="Enter password here">
+                                </div>
+                                <div class="form-group">
+                                    <label><span class="text-danger">*</span>Re-enter Password</label>
+                                    <input required id="pass2" class="form-control" type="password" name="" placeholder="Confirm your password">
+                                </div>
+                                <div class="form-group">
+                                    <label><span class="text-danger">*</span>Mobile</label>
+                                    <input required id="mobile" class="form-control" type="text" name="" placeholder="Enter your mobile number">
+                                </div>
+                                <div class="form-group">
+                                    <label><span class="text-danger">*</span>User Type</label>
+                                    <select id="select" class="form-control">
+                                        <option value="Fresher" selected>Fresher</option>
+                                        <option value="Experience">Experience</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label><span class="text-danger">*</span>Upload Resume</label><br>
+                                    <div class="custom-file">
+                                      <input type="file" class="custom-file-input" id="file" multiple>
+                                      <label class="custom-file-label" for="file">Choose file</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" id="btn1" class="btn btn-primary">Register</button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+
+            <div class="row" id="rowid2">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header"><h5 class="text-secondary">Education</h5></div>
+                        <div class="card-body" style="background-color:#EEEEEE">
+                                <div class="form-group">
+                                    <label><span class="text-danger">*</span>Education</label>
+                                    <select id="edu" class="form-control" onfocus='this.size=4;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                                        <option value="Graduation" selected>Graduation</option>
+                                        <option value="Diploma">Diploma</option>
+                                        <option value="Post-Graduation">Post-Graduation</option>
+                                        <option value="PhD">PhD</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label><span class="text-danger">*</span>Course</label>
+                                    <select id="course" class="form-control" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                                        <option value="B.com">B.Com</option>
+                                        <option value="B.E./Btech"selected>B.E./Btech</option>
+                                        <option value="ME">ME</option>
+                                        <option value="BCA">BCA</option>
+                                        <option value="Btech">Btech</option>
+                                        <option value="BCA">BCA</option>
+                                        <option value="MCA">MCA</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label><span class="text-danger">*</span>Specialization</label>
+                                    <select id="specialization" class="form-control" onfocus='this.size=8;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                                        <option value="Computer" selected>Computer</option>
+                                        <option value="Architecture">Architecture</option>
+                                        <option value="Sociology">Sociology</option>
+                                        <option value="Psychology">Psychology</option>
+                                        <option value="Management">Management</option>
+                                        <option value="Software">Software</option>
+                                        <option value=Civil>Civil</option>
+                                        <option value="Graphic Designing">Graphic Designing</option>
+                                        <option value="Web Designing">Web Designing</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label><span class="text-danger">*</span>Skills</label>
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" placeholder="Enter skills (ex. Python)" id="skills" style="margin-bottom:3px;">
+                                            <label id="label">
+                                            </label>
+                                        </div>
+                                         <div class="col-md-2">
+                                             <button type="button"  id="skillsbtn" class="btn btn-secondary">Add</button>
+                                        </div>
+                                     </div>
+                                </div>
+
+                                 <div class="form-group">
+                                    <label><span class="text-danger">*</span>University/Institute</label>
+                                    <input required id="uni" class="form-control" type="text" name="" placeholder="Enter University/Institute">
+                                </div>
+                                <div class="form-group">
+                                    <label><span class="text-danger">*</span>Course Type</label>
+                                    <select class="form-control" id="ctype">
+                                        <option value="Full Time">Full Time</option>
+                                        <option value="Part Time">Part Time</option>
+                                        <option value="Learning">Learning</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label><span class="text-danger">*</span>Passing Out Year</label>
+                                    <select class="form-control" id="passout">
+                                        <option value="2016">2016</option>
+                                        <option value="2017">2017</option>
+                                        <option value="2018">2018</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary" id="btn2">Save</button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+            <div class="row" id="rowid3">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header"><h5 class="text-secondary">Experience Details</h5></div>
+                        <div class="card-body" style="background-color:#EEEEEE">
+                                <div class="form-group">
+                                    <label><span class="text-danger">*</span>Current Designation</label>
+                                    <input required id="desc" class="form-control" type="text" name="" placeholder="Your job title">
+                                </div>
+                                <div class="form-group">
+                                    <label><span class="text-danger">*</span>Current Company</label>
+                                    <input required id="Comp" class="form-control" type="text" name="" placeholder="Your current company name">
+                                </div>
+                                <div class="form-group">
+                                    <label><span class="text-danger">*</span>Annual Salary (in lakhs)</label>
+                                    <input required id="Asal" class="form-control" type="text" name="" placeholder="Ex. 8.5">
+                                </div>
+                                <div class="form-group">
+                                    <label><span class="text-danger">*</span>Working since</label>
+                                    <div class="row">
+                                        <div class="col-md-1 pr-1" style="margin-top:6px"><small>From</small></div>
+                                        <div class="col-md-5 pl-2">
+                                            <input type="date" id="fromdate" class="form-control">
+                                        </div>
+                                        <div class="col-md-1" style="margin-top:6px"><small>To</small></div>
+                                        <div class="col-md-5">
+                                            <input type="date" id="todate" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label><span class="text-danger">*</span>Duration of notice period</label>
+                                    <input id="notice" class="form-control" type="number"  placeholder="Notice period in months" min="1" max="6">
+                                </div>
+                                <div class="form-group">
+                                    <label><span class="text-danger">*</span>Industry</label>
+                                    <input required id="lndustry" class="form-control" type="text" name="" placeholder="Enter indasrty that you work for">
+                                </div>
+                                <div class="form-group">
+                                    <label><span class="text-danger">*</span>Role</label>
+                                    <input required id="role" class="form-control" type="text" name="" placeholder="Enter the department you work for">
+                                </div>
+                                <div class="form-group">
+                                    <label><span class="text-danger">*</span>Functional Area</label>
+                                    <input required id="area" class="form-control" type="text" name="" placeholder="Enter the role you work in">
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" id="btn3" class="btn btn-primary">Continue</button>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+        </div>
+
+        <script>
+            $(document).ready(function(){
+                $('#rowid2').hide();
+                $('#rowid3').hide();
+                $('#msg').hide();
+                $('#label').hide();
+
+            <!--==========Add Skills============-->
+
+                var skills = [];
+
+                $('#skillsbtn').click(function(){
+                    if($('#skills').val() != ''){
+                        skills.push($('#skills').val());
+                        $('#label').append("<div class='badge badge-pill badge-warning text-wrap py-1' style='width: 5rem;'>"+$('#skills').val()+"</div>"+"&nbsp;");
+                         $('#skills').val('');
+                         $('#label').hide();
+                        $('#label').slideDown();
+                    }
+                });
+
+            <!--===========User Info=============-->
+
+                $('#btn1').click(function(){
+                    $(this).replaceWith('<button class="btn btn-primary" id="btn1" type="button" disabled><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...</button>');
+                    var fd = new FormData();
+
+                    fd.append('file',$('#file')[0].files[0]);
+                    fd.append('name',$('#name').val());
+                    fd.append('mobile',$('#mobile').val());
+                    fd.append('email',$('#email').val());
+                    fd.append('pass1',$('#pass1').val());
+                    fd.append('pass2',$('#pass2').val());
+                    fd.append('type',$('#select').val());
+
+                    req = $.ajax({
+                        url: 'http://127.0.0.1:8000/saveuserregister/',
+                        type: 'post',
+                        data : fd,
+                        processData: false,
+                        contentType: false
+                    });
+                    req.done(function(data){
+                        if(data.status == 'success'){
+                        $('#exampleModal').modal('show');
+                            if($('#select').val() == 'Fresher'){
+                                $('#rowid1').fadeOut(1000);
+                                $('#rowid2').fadeIn(1000);
+                            }
+                            else{
+                                $('#rowid1').fadeOut(1000);
+                                $('#rowid3').fadeIn(1000);
+                            }
+                        }
+                        else{
+                            $('#btn1').replaceWith('<div class="form-group"><button type="button" id="btn1" class="btn btn-primary">Register</button></div>');
+                            $('#msg').show();
+                        }
+                    });
+                });
+
+            <!--=============Add Education==========-->
+
+                $('#btn2').click(function(){
+                     $(this).replaceWith('<button class="btn btn-primary" id="btn1" type="button" disabled><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...</button>');
+                     edDetails();
+                });
+
+                function edDetails(){
+                    var edu = $('#edu').val();
+                    var course = $('#course').val();
+                    var sp = $('#specialization').val();
+                    var uni = $('#uni').val();
+                    var ctype = $('#ctype').val();
+                    var passout = $('#passout').val();
+
+                    req = $.ajax({
+                        url: 'http://127.0.0.1:8000/education/',
+                        type: 'post',
+                        dataType: 'JSON',
+                        data : {'edu':edu, 'course':course, 'specialization':sp, 'skill':skills ,'uni':uni, 'ctype':ctype, 'passout':passout},
+                    });
+                    req.done(function(data){
+                        if(data.status == 'success'){
+                            $('#rowid2').fadeOut(1000);
+                            location.href = 'http://127.0.0.1:8000/login/';
+
+                        }
+                        else{
+                            $('#btn1').replaceWith('<div class="form-group"><button type="button" id="btn1" class="btn btn-primary">Save</button></div>');
+                             $('#msg').show();
+                        }
+                    });
+                }
+
+            <!--=============Add Experience==========-->
+
+                $('#btn3').click(function(){
+                     exDetails();
+                });
+
+                function exDetails(){
+                     req = $.ajax({
+                        url: 'http://127.0.0.1:8000/experience/',
+                        type: 'post',
+                        dataType: 'JSON',
+                        data : {'Desc':$('#desc').val(), 'company':$('#Comp').val(), 'annualsal':$('#Asal').val(),
+                                'fromdate':$('#fromdate').val(), 'todate':$('#todate').val(), 'notice':$('#notice').val(),
+                                 'industry':$('#lndustry').val(), 'role':$('#role').val() , 'area':$('#area').val()},
+                    });
+                    req.done(function(data){
+                        if(data.status == 'success'){
+                            $('#rowid3').fadeOut(1000);
+                            $('#rowid2').fadeIn(1000);
+                        }
+                        else{
+                            $('#msg').show();
+                        }
+                    });
+                }
+
+            });
+        </script>
+</body>
+</html>
